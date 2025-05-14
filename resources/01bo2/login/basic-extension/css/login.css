@@ -1,0 +1,157 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+}
+
+*:not(input) {
+    -webkit-user-select: none;
+}
+
+#kc-registration {
+    display: none;
+}
+
+#kc-form-options {
+    display: none;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-size: max(3.6vw, 16px) !important;
+    visibility: hidden;
+}
+
+.header {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 5vh;
+    font-size: max(5.4vw, 24px) !important;
+    font-weight: 700;
+}
+
+.label-for-otp {
+    padding-bottom: 4vh;
+    font-size: max(3.6vw, 16px) !important;
+}
+
+.label-for-warning {
+    padding-bottom: 4vh;
+    font-size: max(2vw, 16px) !important;
+    color: #d8303a;
+}
+
+.username-input {
+    border-radius: 20px;
+    border: 2px solid #d1d1d1;
+    padding: 1.5rem 1.5rem;
+}
+
+.username-input::placeholder {
+    color: #8699b6;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2vw;
+    padding-bottom: 2vh;
+}
+
+.button {
+    background: #2574ff;
+    color: white;
+    border-radius: 16px;
+    padding: 1.5rem 1.5rem;
+    border: none;
+
+    &:disabled {
+        background: #d1d1d1;
+    }
+}
+
+.sign-up {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.kc-form-error {
+    color: var(--bs-danger);
+
+    &.既に存在するEメールです。 {
+        width: 0;
+        height: 0;
+        color: rgba(0, 0, 0, 0);
+        font-size: 0;
+    }
+
+    &.Email.already {
+        width: 0;
+        height: 0;
+        color: rgba(0, 0, 0, 0);
+        font-size: 0;
+    }
+}
+
+.otp-login-container {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.otp-form-container {
+    width: 100%;
+    display: flex;
+
+    .otp-input-container {
+        width: 100%;
+    }
+
+    .otp-input {
+        width: 100%;
+        text-align: center;
+        letter-spacing: 2rem;
+
+        &:disabled {
+            color: #d1d1d1;
+        }
+    }
+
+    flex-direction: column;
+    align-items: center;
+    gap: 2vw;
+    padding-bottom: 2vh;
+}
+
+.otp-submit-container {
+    input {
+        font-size: max(3.6vw, 16px) !important;
+        margin: 0 1rem;
+        background: #fff;
+        border: none;
+        color: #2574ff;
+
+        &:disabled {
+            color: #d1d1d1;
+        }
+    }
+
+    a {
+        color: #2574ff;
+        text-decoration: none;
+        font-size: max(3.6vw, 16px) !important;
+
+        &:hover {
+            color: #2574ff;
+        }
+    }
+}

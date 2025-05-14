@@ -1,14 +1,84 @@
-<html>
+<html class="" lang="ja">
+
 <head>
-   <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+   <meta charset="utf-8">
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta name="robots" content="noindex, nofollow">
+   <meta http-equiv="Pragma" content="no-cache">
+   <meta http-equiv="Cache-Control" content="no-cache">
+   <meta http-equiv="Expires" content="0">
+
+   <title>hashwalletにログイン</title>
+   <link rel="icon" href="/resources/01bo2/login/basic-extension/img/favicon.ico">
+   <link href="/resources/01bo2/login/basic-extension/css/login.css?20250514093900" rel="stylesheet">
+   <link href="/resources/01bo2/login/basic-extension/css/bootstrap.min.css?20250514093900" rel="stylesheet">
+   <script src="/resources/01bo2/login/basic-extension/js/login.js?20250514093900" type="text/javascript"></script>
+   <script> if (typeof history.replaceState === 'function') { history.replaceState({}, "some title", "https://keycloak.dev-main.hash-wallet.com/realms/hashwallet/login-actions/authenticate?execution=9dba80fd-b503-4b74-8e90-370833c312e9&client_id=account&tab_id=gp40hsCch6s"); }</script>
 </head>
-<body >
-   <h1>My Deep Link Test page</h1>
-   <p><a href="expowallet://">Launch 1</a></p>
-   <p><a href="expowallet://mylink">Launch 2</a></p>
-   <p><a href="expowallet://mylink?parameter">Launch with Parameter</a></p>
-   <p><a href="unitydl://">Launch 3</a></p>
-   <p><a href="unitydl://mylink">Launch 4</a></p>
-   <p><a href="unitydl://mylink?parameter">Launch with Parameter</a></p>
+
+<body class="" style="visibility: visible;">
+   <div class="">
+      <div class="">
+         <div id="kc-content" class="content">
+            <div id="kc-content-wrapper">
+
+
+               <div class="otp-login-container">
+                  <form id="kc-otp-login-form" class=""
+                     action="https://keycloak.dev-main.hash-wallet.com/realms/hashwallet/login-actions/authenticate?session_code=tvOEYKBXV3bIiw8v-xQBkt9GyCWTQaR4ogLOenhC3Ow&amp;execution=9dba80fd-b503-4b74-8e90-370833c312e9&amp;client_id=account&amp;tab_id=gp40hsCch6s"
+                     method="post">
+                     <div class="">
+                        <div class="">
+                           <label for="otp" class=" label-for-otp">メールに記載の認証コードを入力してください。<br></label>
+                        </div>
+
+                        <div class="otp-form-container">
+                           <div class=" otp-input-container">
+                              <input name="otp" id="kc-otp-login-form-otp-input" autocomplete="off" type="text"
+                                 class=" username-input otp-input" autofocus="" aria-invalid=""
+                                 onfocus="document.querySelector(`.hide-on-input-focus`).style.display = `none`"
+                                 onblur="document.querySelector(`.hide-on-input-focus`).style.display = ``">
+                           </div>
+
+                           <div class="">
+                              <div id="kc-form-options" class="">
+                                 <div class="">
+                                 </div>
+                              </div>
+                              <div id="kc-form-buttons" class=" otp-submit-container">
+                                 <input class="  " name="resend" id="kc-resend" type="submit" value="コードを再送信">
+                                 <input
+                                    onclick="submit(); this.disabled=true; var self = this; setTimeout(function(){self.disabled=false;},15000);"
+                                    class="  " name="name-submit" id="kc-submit" type="button" value="認証する"
+                                    style="background: #2574ff;color: white;border-radius: 10px;border: solid 3px white;padding: 16px 32px;">
+                              </div>
+                              <div class=" hide-on-input-focus" style="">
+                                 <label for="otp"
+                                    class=" label-for-warning">メールが届かない方は、迷惑メール扱いとなっている可能性があるので「@verify.hash-wallet.com」からのメールを受信可能に設定してください。<br></label>
+                                 <input type="button" onclick="Unity.call(`back`); return false;"
+                                    style="background: #FFF;color: gray;border-radius: 10px;border: solid 3px white;padding: 5px;"
+                                    value="<　戻る">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+
+
+
+               <div id="kc-info" class=" sign-up">
+                  <div id="kc-info-wrapper" class="">
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+
+
+   <script src="https://common-ui-dev.hash-wallet.com/index.js"></script>
 </body>
+
 </html>
