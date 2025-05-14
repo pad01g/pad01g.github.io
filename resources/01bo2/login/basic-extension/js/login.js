@@ -125,6 +125,145 @@ function atRequiredAciton() {
     if (isChildWindow() && isUsedAsCommonUiNow()) hideBody();
 }
 
+let useEightDigitMode = false; // 8桁モードか16桁モードかを切り替えるフラグ
+
+function handleDigitInput() {
+    const digitInputs = document.querySelectorAll('.digit-input');
+    const hiddenInput = document.getElementById('kc-otp-login-form-otp-input');
+
+    digitInputs.forEach((input, index) => {
+        input.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+
+            const isLastBox = (useEightDigitMode && index === 7) || (!useEightDigitMode && index === 15);
+            if (!isLastBox && this.value.length === 1) {
+                const nextIndex = index + 1;
+                if (nextIndex < digitInputs.length && (!useEightDigitMode || nextIndex < 8)) {
+                    digitInputs[nextIndex].focus();
+                }
+            }
+
+            updateHiddenInput();
+        });
+
+        input.addEventListener('keydown', function (e) {
+            if (/^\d$/.test(e.key) && index !== (useEightDigitMode ? 7 : 15)) {
+                const nextIndex = index + 1;
+                if (nextIndex < digitInputs.length && (!useEightDigitMode || nextIndex < 8)) {
+                    this.value = e.key;
+                    digitInputs[nextIndex].focus();
+                    updateHiddenInput();
+                    e.preventDefault(); // Prevent default to avoid double input
+                }
+            }
+            else if (e.key === 'Backspace') {
+                if (this.value === '' && index > 0) {
+                    digitInputs[index - 1].focus();
+                    digitInputs[index - 1].value = '';
+                    updateHiddenInput();
+                    e.preventDefault();
+                }
+            }
+            else if (e.key === 'ArrowLeft') {
+                if (index > 0) {
+                    digitInputs[index - 1].focus();
+                    e.preventDefault();
+                }
+            } else if (e.key === 'ArrowRight') {
+                if (index < digitInputs.length - 1 && (!useEightDigitMode || index < 7)) {
+                    digitInputs[index + 1].focus();
+                    e.preventDefault();
+                }
+            }
+        });
+
+        input.addEventListener('focus', function () {
+            const labelForOtp = document.querySelector('.label-for-otp');
+            if (labelForOtp) {
+                labelForOtp.style.display = 'none';
+            }
+
+            const hideOnInputFocus = document.querySelector('.hide-on-input-focus');
+            if (hideOnInputFocus) {
+                hideOnInputFocus.style.display = 'none';
+            }
+
+            this.select();
+        });
+
+        input.addEventListener('blur', function () {
+            setTimeout(() => {
+                if (!document.querySelector('.digit-input:focus')) {
+                    const labelForOtp = document.querySelector('.label-for-otp');
+                    if (labelForOtp) {
+                        labelForOtp.style.display = 'block';
+                    }
+
+                    const hideOnInputFocus = document.querySelector('.hide-on-input-focus');
+                    if (hideOnInputFocus) {
+                        hideOnInputFocus.style.display = 'block';
+                    }
+                }
+            }, 10);
+        });
+
+        input.addEventListener('paste', function (e) {
+            e.preventDefault();
+            const pasteData = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = pasteData.replace(/[^0-9]/g, '');
+
+            for (let i = 0; i < digits.length; i++) {
+                const targetIndex = index + i;
+                if (targetIndex < digitInputs.length && (!useEightDigitMode || targetIndex < 8)) {
+                    digitInputs[targetIndex].value = digits[i];
+                }
+            }
+
+            const nextEmptyIndex = Math.min(
+                index + digits.length,
+                useEightDigitMode ? 8 : 16
+            );
+
+            if (nextEmptyIndex < digitInputs.length && (!useEightDigitMode || nextEmptyIndex < 8)) {
+                digitInputs[nextEmptyIndex].focus();
+            } else {
+                digitInputs[useEightDigitMode ? 7 : 15].focus();
+            }
+
+            updateHiddenInput();
+        });
+    });
+
+    function updateHiddenInput() {
+        const maxDigits = useEightDigitMode ? 8 : 16;
+        let combinedValue = '';
+
+        for (let i = 0; i < maxDigits; i++) {
+            combinedValue += digitInputs[i].value || '';
+        }
+
+        hiddenInput.value = combinedValue;
+    }
+}
+
+function toggleDigitMode(useEight) {
+    useEightDigitMode = useEight;
+
+    const sixteenDigitsElements = document.querySelectorAll('.sixteen-digits-mode');
+    sixteenDigitsElements.forEach(element => {
+        element.style.display = useEight ? 'none' : 'flex';
+    });
+    const digitInputs = document.querySelectorAll('.digit-input');
+    digitInputs.forEach(input => {
+        input.value = '';
+    });
+
+    const hiddenInput = document.getElementById('kc-otp-login-form-otp-input');
+    if (hiddenInput) {
+        hiddenInput.value = '';
+    }
+}
+
 // ページ読み込み時に実行
 window.onload = function () {
     showBody();
@@ -136,4 +275,34 @@ window.onload = function () {
     atRequiredAciton();
 
     disableEnterKey();
+
+    handleDigitInput();
+
+    // URLにuseEightが含まれているかをチェックしてモードを切り替える
+    if (location.href.includes("useEight")) {
+        toggleDigitMode(true); // 8桁モード
+    } else {
+        toggleDigitMode(false); // 16桁モード
+    }
+
+    const labelForOtp = document.querySelector('.label-for-otp');
+    if (labelForOtp) {
+        labelForOtp.style.display = 'block';
+    }
+
+    const hideOnInputFocus = document.querySelector('.hide-on-input-focus');
+    if (hideOnInputFocus) {
+        hideOnInputFocus.style.display = 'block';
+    }
+
+    setTimeout(() => {
+        if (!document.querySelector('.digit-input:focus')) {
+            if (labelForOtp) {
+                labelForOtp.style.display = 'block';
+            }
+            if (hideOnInputFocus) {
+                hideOnInputFocus.style.display = 'block';
+            }
+        }
+    }, 100);
 };

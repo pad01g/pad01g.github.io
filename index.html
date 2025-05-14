@@ -29,15 +29,59 @@
                      method="post">
                      <div class="">
                         <div class="">
-                           <label for="otp" class=" label-for-otp">メールに記載の認証コードを入力してください。<br></label>
+                           <label for="otp" class="label-for-otp"
+                              style="display: block;">メールに記載の認証コードを入力してください。<br></label>
                         </div>
 
                         <div class="otp-form-container">
-                           <div class=" otp-input-container">
-                              <input name="otp" id="kc-otp-login-form-otp-input" autocomplete="off" type="text"
-                                 class=" username-input otp-input" autofocus="" aria-invalid=""
-                                 onfocus="document.querySelector(`.hide-on-input-focus`).style.display = `none`"
-                                 onblur="document.querySelector(`.hide-on-input-focus`).style.display = ``">
+                           <div class="otp-grid-container">
+                              <div class="otp-grid-row">
+                                 <div class="digit-group">
+                                    <input type="text" id="digit-1" name="digit-1" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-2" name="digit-2" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-3" name="digit-3" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-4" name="digit-4" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                 </div>
+                                 <div class="otp-hyphen">-</div>
+                                 <div class="digit-group">
+                                    <input type="text" id="digit-5" name="digit-5" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-6" name="digit-6" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-7" name="digit-7" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-8" name="digit-8" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                 </div>
+                              </div>
+                              <div class="otp-grid-row sixteen-digits-mode">
+                                 <div class="digit-group">
+                                    <input type="text" id="digit-9" name="digit-9" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-10" name="digit-10" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-11" name="digit-11" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-12" name="digit-12" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                 </div>
+                                 <div class="otp-hyphen">-</div>
+                                 <div class="digit-group">
+                                    <input type="text" id="digit-13" name="digit-13" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-14" name="digit-14" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-15" name="digit-15" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                    <input type="text" id="digit-16" name="digit-16" class="digit-input" maxlength="1"
+                                       autocomplete="off" inputmode="numeric" pattern="[0-9]">
+                                 </div>
+                              </div>
+                              <input type="hidden" name="otp" id="kc-otp-login-form-otp-input" autocomplete="off">
                            </div>
 
                            <div class="">
@@ -45,16 +89,16 @@
                                  <div class="">
                                  </div>
                               </div>
-                              <div id="kc-form-buttons" class=" otp-submit-container">
-                                 <input class="  " name="resend" id="kc-resend" type="submit" value="コードを再送信">
+                              <div id="kc-form-buttons" class="otp-submit-container">
+                                 <input class="" name="resend" id="kc-resend" type="submit" value="コードを再送信">
                                  <input
                                     onclick="submit(); this.disabled=true; var self = this; setTimeout(function(){self.disabled=false;},15000);"
-                                    class="  " name="name-submit" id="kc-submit" type="button" value="認証する"
+                                    class="" name="name-submit" id="kc-submit" type="button" value="認証する"
                                     style="background: #2574ff;color: white;border-radius: 10px;border: solid 3px white;padding: 16px 32px;">
                               </div>
-                              <div class=" hide-on-input-focus" style="">
+                              <div class="hide-on-input-focus" style="">
                                  <label for="otp"
-                                    class=" label-for-warning">メールが届かない方は、迷惑メール扱いとなっている可能性があるので「@verify.hash-wallet.com」からのメールを受信可能に設定してください。<br></label>
+                                    class="label-for-warning">メールが届かない方は、迷惑メール扱いとなっている可能性があるので「@verify.hash-wallet.com」からのメールを受信可能に設定してください。<br></label>
                                  <input type="button" onclick="Unity.call(`back`); return false;"
                                     style="background: #FFF;color: gray;border-radius: 10px;border: solid 3px white;padding: 5px;"
                                     value="<　戻る">

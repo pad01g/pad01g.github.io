@@ -39,12 +39,17 @@ body {
 .label-for-otp {
     padding-bottom: 4vh;
     font-size: max(3.6vw, 16px) !important;
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .label-for-warning {
     padding-bottom: 4vh;
     font-size: max(2vw, 16px) !important;
     color: #d8303a;
+    width: 100%;
+    text-align: center;
 }
 
 .username-input {
@@ -111,25 +116,166 @@ body {
 .otp-form-container {
     width: 100%;
     display: flex;
-
-    .otp-input-container {
-        width: 100%;
-    }
-
-    .otp-input {
-        width: 100%;
-        text-align: center;
-        letter-spacing: 2rem;
-
-        &:disabled {
-            color: #d1d1d1;
-        }
-    }
-
     flex-direction: column;
     align-items: center;
     gap: 2vw;
     padding-bottom: 2vh;
+}
+
+.otp-grid-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    margin: 0 auto;
+}
+
+.otp-grid-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Hide sixteen-digits-mode by default in 8-digit mode */
+.sixteen-digits-mode {
+    display: none;
+}
+
+.digit-group {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    max-width: 270px;
+    gap: 0.5rem;
+}
+
+.digit-input {
+    width: 40px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid #d1d1d1;
+    text-align: center;
+    font-size: max(3.6vw, 16px);
+    font-weight: 500;
+    color: #333;
+    background-color: white;
+    padding: 0;
+    caret-color: #2574ff;
+}
+
+.digit-input:focus {
+    outline: none;
+    border: 2px solid #2574ff;
+    box-shadow: 0 0 5px #2574ff;
+}
+
+.otp-hyphen {
+    font-size: max(4vw, 20px);
+    font-weight: bold;
+    color: #2574ff;
+    margin: 0 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Hide number input spinners */
+.digit-input::-webkit-outer-spin-button,
+.digit-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.digit-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Landscape orientation styles */
+@media (orientation: landscape) {
+    body {
+        padding: 5px;
+        overflow-y: hidden;
+        /* Prevent scrolling */
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .otp-login-container {
+        transform: scale(0.9);
+        max-height: 100vh;
+    }
+
+    .label-for-otp {
+        font-size: max(2.5vw, 16px) !important;
+        padding-bottom: 0.5vh;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .label-for-warning {
+        font-size: max(1.8vw, 16px) !important;
+        padding-bottom: 0.5vh;
+        margin-bottom: 5px;
+    }
+
+    .otp-form-container {
+        gap: 0.5vw;
+        padding-bottom: 0.5vh;
+    }
+
+    .otp-grid-container {
+        margin: 0 auto;
+        gap: 0.3rem;
+    }
+
+    .otp-grid-row {
+        margin-bottom: 0.2rem;
+    }
+
+    .otp-hyphen {
+        font-size: max(2.5vw, 14px);
+        margin: 0 0.2rem;
+    }
+
+    .otp-submit-container {
+        margin-top: 0.5vh;
+    }
+
+    .otp-submit-container input {
+        font-size: max(1.8vw, 12px) !important;
+        margin: 0 0.3rem;
+        padding: 5px 10px !important;
+    }
+
+    input[type="button"] {
+        padding: 5px 10px !important;
+        font-size: max(2.5vw, 16px) !important;
+    }
+
+    input[value="<　戻る"] {
+        padding: 2px 5px !important;
+        margin-top: 0.2vh;
+    }
 }
 
 .otp-submit-container {
