@@ -127,12 +127,27 @@ function atRequiredAciton() {
 
 let useEightDigitMode = false; // 8桁モードか16桁モードかを切り替えるフラグ
 
+function isIOSSafari() {
+    const ua = navigator.userAgent;
+    return /iPad|iPhone|iPod/.test(ua) && !window.MSStream && /Safari/.test(ua) && !/Chrome/.test(ua);
+}
+
 function handleDigitInput() {
     const digitInputs = document.querySelectorAll('.digit-input');
     const hiddenInput = document.getElementById('kc-otp-login-form-otp-input');
+    const isIOS = isIOSSafari();
+    
+    let lastInputTime = 0;
+    const inputThreshold = 300; // ミリ秒
 
     digitInputs.forEach((input, index) => {
         input.addEventListener('input', function (e) {
+            const now = Date.now();
+            if (isIOS && now - lastInputTime < inputThreshold) {
+                return;
+            }
+            lastInputTime = now;
+            
             this.value = this.value.replace(/[^0-9]/g, '');
 
             const isLastBox = (useEightDigitMode && index === 7) || (!useEightDigitMode && index === 15);
@@ -150,6 +165,11 @@ function handleDigitInput() {
             if (/^\d$/.test(e.key) && index !== (useEightDigitMode ? 7 : 15)) {
                 const nextIndex = index + 1;
                 if (nextIndex < digitInputs.length && (!useEightDigitMode || nextIndex < 8)) {
+                    if (isIOS) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
                     this.value = e.key;
                     digitInputs[nextIndex].focus();
                     updateHiddenInput();
