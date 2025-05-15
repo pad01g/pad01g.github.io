@@ -138,7 +138,7 @@ function handleDigitInput() {
     const isIOS = isIOSSafari();
     
     let lastInputTime = 0;
-    const inputThreshold = 300; // ミリ秒
+    const inputThreshold = 10; // ミリ秒
 
     digitInputs.forEach((input, index) => {
         input.addEventListener('input', function (e) {
